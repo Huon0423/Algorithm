@@ -1,15 +1,18 @@
-# 64보다 작거나 같은 입력값 x가 주어진다.
-# 재귀함수를 사용하여 막대의 길이가 x보다 작아질 때까지 절반으로 쪼갠다.
-# 막대가 1만큼 작아지거나, 막대와 x의 길이가 같다면 count를 증가시켜 반환한다.
+# 줄을 선 사람의 수 n(1~1000)과 각 사람의 인출 시간 Pi(1~1000)가 주어진다.
+# 필요한 시간의 값을 구하는 방식은 1,1+2,1+2+3,1+2+3+4,1+2+3+4...+n
+# 앞순서가 중복으로 더해지므로 걸리는 시간이 가장 짧은 순으로 나열하면 된다.
+# 정렬된 인출 시간들을 누적 합 함수 cumsum을 사용해 구한다. > numpy 사용 불가
+# for 문으로 대체하여, 0부터 i까지의 합을 변수에 모두 더한다.
 
-x = int(input())
-n = 64
-count = 0
+# import numpy as np
 
-def divide_half(x, n) :
-    if n == 1 or x == n : count += 1; return count
-    elif x < n : divide_half(x, n // 2)
-    elif x > n : x = x-n; divide_half(x, n)
-    print(count)
+n = int(input())
+times = list(map(int, input().split()))
+times.sort()
+all_sum = 0
 
-print(divide_half(x, n))
+# print(sum(np.cumsum(times)))
+for i in range(n) :
+    all_sum += sum(times[:i+1])
+
+print(all_sum)
