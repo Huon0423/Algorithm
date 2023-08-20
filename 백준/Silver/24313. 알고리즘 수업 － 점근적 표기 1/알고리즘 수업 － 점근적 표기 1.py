@@ -9,13 +9,7 @@ a1, a0 = map(int,input().split())
 c = int(input().strip())
 n0 = int(input().strip())
 
-def isSuccess(a1, a0, c, n):
-    for i in range(n, 100+1):
-        if a1 * i + a0 > c * i:
-            return False
-    return True
-
-if (isSuccess(a1, a0, c, n0)):
+if (a1*n0+a0 <= c * n0 and c >= a1):
     print(1)
 else:
     print(0)
