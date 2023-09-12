@@ -1,11 +1,18 @@
-# 정해진 개수를 배열로 저장해서 들어오는 값과 비교한다.
-# 두 수의 차이만큼을 배열에 저장하여 출력한다.
+# 소수는 에라토스테네스의 체로 찾는다.
+# 입력된 수부터 입력된 수까지 소수를 찾아 출력한다.
 
-chess = [1,1,2,2,2,8]
-whitePiece = list(map(int, input().split()))
-answer= ""
+import sys, math
 
-for i in range(len(whitePiece)) :
-    answer = answer + str(chess[i] - whitePiece[i]) + " "
+def prime(x): # 소수를 판명하는 함수
+    if x == 0 or x == 1:
+        return False
+    for i in range(2, int(math.sqrt(x))+1):
+        if x % i == 0:
+            return False
+    return True
 
-print(answer.strip())
+a, b = map(int, sys.stdin.readline().split())
+
+for i in range(a,b+1) :
+    if prime(i):
+        print(i)

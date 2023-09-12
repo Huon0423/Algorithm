@@ -6,7 +6,7 @@ import sys, math
 def prime(x): # 소수를 판명하는 함수
     if x == 0 or x == 1:
         return False
-    for i in range(2, int(math.sqrt(n))+1):
+    for i in range(2, int(math.sqrt(x))+1):
         if x % i == 0:
             return False
     return True
