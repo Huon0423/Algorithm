@@ -1,4 +1,4 @@
-#
+# 왜 안되지 push...
 
 import sys
 input = sys.stdin.readline
