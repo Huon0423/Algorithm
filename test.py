@@ -1,23 +1,16 @@
-# 왜 안되지 push...
-
+# 같은 수의 삽입은 허용하되, 숫자가 모두 동일한 수열은 존재하면 안된다.
+# 따라서 중복을 체크하는 조건문을 없애되, 삽입 후 삽입한 수부터 반복문을 시작한다.
 import sys
-input = sys.stdin.readline
 
-N, M = map(int, input().rstrip().split())
-word_lst = {}
+n, m = map(int, sys.stdin.readline().split())
+answer = []
 
-for _ in range(N):
-    word = input().rstrip()
-    
-    if len(word) < M: # 단어가 M미만인 경우
-        continue
-    else:
-        if word in word_lst: # 단어가 있는 경우
-            word_lst[word] += 1
-        else:
-            word_lst[word] = 1
+def backTracking(idx) :
+    if len(answer) == m : print(" ".join(map(str, answer))); return # m개만큼 뽑으면 그만
 
-word_lst = sorted(word_lst.items(), key = lambda x : (-x[1], -len(x[0]), x[0]))
+    for i in range(idx, n+1) :
+        answer.append(i) # 중복 상관없이 순서대로 집어넣는다.
+        backTracking(i) # 재귀 함수 호출
+        answer.pop() # 자식 노드를 돌고 지움 > 자식 노드를 다 돌고나면 부모 노드 지움
 
-for i in word_lst:
-    print(i[0])
+backTracking(1)
