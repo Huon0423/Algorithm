@@ -17,7 +17,7 @@ for _ in range(m) :
     e_list[u].append(v)
     e_list[v].append(u)
 
-for i in range(n) : # 인접 정점을 오름차순으로 정렬
+for i in range(n+1) : # 인접 정점을 오름차순으로 정렬
     e_list[i].sort()
 
 def dfs(v,e,r) :
