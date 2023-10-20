@@ -1,26 +1,28 @@
-# list를 이차원 배열로 받아서 이중반복문으로 검사한다.
-# 0인 요소를 만나면 가로, 세로, 대각선, 사각형을 검사한다.
-# 만약 1~9까지 어떤 숫자도 만족하지 않는다면 이전 값으로 돌아간다?
-# i가 위의 조건을 만족한다면 list의 값을 i값으로 수정한다.
-# 행의 숫자가 9가 되면 출력한다.
+# bfs를 사용하여 미로를 탐색한다.
+# 시계방향대로 위에서부터 벽을 0,1,1,0(예)로 저장한다.
 
 import sys
+from collections import deque
+sys.setrecursionlimit(10**5)
 
-sudoku = [list(map(int,sys.stdin.readline().split())) for _ in range(9)]
-answer = [arr[:] for arr in sudoku]
-s_len = 0
+n, m =  map(int, sys.stdin.readline().split()) # 미로의 크기
+pre_location = 1 # 현재 위치
+maze = [] # 미로
+relation = [[]] * (n*m) # 미로의 각 위치에 대한 상하좌우 정보 저장 배열
+dq = deque()
+answer = 0
 
-def backTracking() :
-    if s_len == 9 : print(" ".join(map(str, answer)));
+for _ in range(n) :
+    maze.append(list(map(int,str(sys.stdin.readline().strip()))))
 
-    for i in range(9) :
-        for j in range(9) :
-            if sudoku[i][j] == 0 :
-                answer[i][j] = j
-                s_len += 1
-                backTracking()
-                # answer[i][j] = j # 중복 상관없이 순서대로 집어넣는다.
-                # backTracking() # 재귀 함수 호출
-                # answer.pop() # 자식 노드를 돌고 지움 > 자식 노드를 다 돌고나면 부모 노드 지움
 
-backTracking()
+# def bfs(v,e,r) :
+#     dq.append(r) # 큐에 시작 정점 추가
+#     while len(dq) > 0 :
+#       u = dq.popleft() # 방문한 정점을 큐에서 제거
+#       for x in relation[u] :
+#         if not maze[x]: # 아직 방문하지 않은 인접 정점이라면
+#            maze[x] = True # 정점 방문 체크
+#            dq.append(x) # 큐에 방문 정점 추가
+
+# bfs(maze, relation, 1)
