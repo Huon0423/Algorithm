@@ -19,17 +19,19 @@ public class Main {
 	public static int N; // 1부터 N까지의 숫자 => 범위
 	public static int M; // 만족해야 하는 수열의 개수
 	public static Deque<Integer> sequence; // 1~N개의 숫자 중 M개를 보관할 Dequeue
-	public static BufferedWriter bw; // 함수에서 쓰기 위한 static 출력
+	public static StringBuilder sb; // 함수에서 쓰기 위한 StringBuilder
 	
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); // 입력
-		bw = new BufferedWriter(new OutputStreamWriter(System.out)); // 출력
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out)); // 출력
 		String []input = br.readLine().split(" "); // 입력값 배열
 		N = Integer.parseInt(input[0]); // 정수로 변환
 		M = Integer.parseInt(input[1]); // 정수로 변환
 		sequence = new ArrayDeque<Integer>(); // 배열 초기화
+		sb = new StringBuilder(40320); // 최댓값이 8이므로 8!까지 수용 가능한 Builder
 		
 		BackTracking(); // 함수 호출
+		bw.append(sb); // bw에 sb 추가
 		bw.flush(); // bw에 남은 글자 모두 출력
 		br.close(); // 입력 종료
 		bw.close(); // 출력 종료
@@ -38,9 +40,10 @@ public class Main {
 	public static void BackTracking() throws IOException {
 		if(sequence.size() == M) { // 큐의 크기가 M과 같다면
 			for(int q : sequence){ // 0부터 M까지
-				bw.append(Integer.toString(q)+" "); // 큐에서 순서대로 빼서 bw에 추가
+				sb.append(q); // bw에 수열 추가
+				sb.append(" ");
 			}
-			bw.append("\n");
+			sb.append("\n");
 			return; // 재귀 종료
 		}
 		for(int i=1; i<N+1; i++) {
