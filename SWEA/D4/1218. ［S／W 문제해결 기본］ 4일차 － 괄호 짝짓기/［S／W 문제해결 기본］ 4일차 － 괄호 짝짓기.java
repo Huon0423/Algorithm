@@ -1,5 +1,8 @@
 /*
- * 음,, 아스키코드를 사용하긴 했지만 이게 그렇게 효과적이었을까...?
+ * 문자열을 char 배열로 받고 char배열을 for문으로 돌면서 들어오는 c값을 체크한다.
+ * 만약 c가 닫는 괄호이며 peek과 맞는 괄호라면 peek을  pop
+ * 아니라면 push한다.
+ * 맞지 않는 괄호가 하나라도 있다면, 이후 비교가 무의미
  */
 
 import java.io.BufferedReader;
@@ -26,35 +29,26 @@ class Solution {
 				sb.append(0).append("\n"); // 출력 양식 저장
 				continue;
 			}
-			Deque<Integer> dq = new ArrayDeque<Integer>(); // 괄호를 넣을 dq
+			Deque<Character> dq = new ArrayDeque<Character>(); // 괄호를 넣을 dq
 
 			// 괄호 비교
-			for (int c : bracket) {
-				if (c == 40 || c == 60 || c == 91 || c == 123) { // 여는 괄호라면
-					dq.addFirst(c); // 추가
-					continue; // 넘김
+			for (char c : bracket) {
+				if ((c == ')' && dq.peek() == '(') || (c == ']' && dq.peek() == '[') || (c == '}' && dq.peek() == '{')
+						|| (c == '>' && dq.peek() == '<')) {
+					dq.pollFirst();
+				} else {
+					dq.addFirst(c);
 				}
-				if (dq.isEmpty()) { // 닫는 괄호가 들어오는데 큐가 비어있다면
-					dq.add(0); // Empty 상태를 벗어나고
-					break; // 비교 for문 나가기
-				}
-				if (Math.abs(dq.peek() - c) > 2) { // 가장 위에 있는 괄호랑 맞지 않으면
-					break; // 비교 for문 나가기
-				}
-				dq.poll(); // 맞는 괄호이므로 여는 괄호 빼기
 			}
-			if (dq.isEmpty()) { // 비교가 끝났을 때, 남아있는 괄호가 없다면
-				sb.append(1).append("\n"); // 성공 추가
-				continue; // testCase 넘김
+			if(dq.isEmpty()) {
+				sb.append(1).append("\n");
+				continue;
 			}
-			sb.append(0).append("\n");  // 실패 추가
-
+			sb.append(0).append("\n");
 		}
 		bw.append(sb); // bw에 sb 추가
 		bw.flush(); // bw 출력
 		br.close(); // 입력 종료
 		bw.close(); // 출력 종료
-
 	}
-
 }
