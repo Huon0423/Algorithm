@@ -19,7 +19,7 @@ def checkQueen(count):
 
 def backTracking(count) : # count == 놓은 체스말의 수 > 1씩 증가
     global answer
-    if count == n :  answer += 1 # 체스말을 다 놓으면 방법 개수 1 증가
+    if count == n :  answer += 1; return # 체스말을 다 놓으면 방법 개수 1 증가
     else : # if문에서 함수가 끝나지 않기 때문에 필요
         for i in range(n) :
             chess[count] = i
