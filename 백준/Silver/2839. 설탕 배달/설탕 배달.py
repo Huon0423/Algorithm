@@ -2,12 +2,7 @@
 
 n = int(input().strip())
 num = n // 5
-answer = 0
-
 while True :
-    temp = n
     if num < 0 : print(-1); break
-    if (temp - num * 5) % 3 == 0 :
-        print((temp - num * 5)//3 + num); break
-    else :
-        num -= 1
+    if (n - num * 5) % 3 == 0 : print((n - num * 5)//3 + num); break
+    else : num -= 1
