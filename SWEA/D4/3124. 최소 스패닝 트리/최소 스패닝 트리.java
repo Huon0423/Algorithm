@@ -30,15 +30,16 @@ class Solution {
 			}
 
 			int n = 0;
-			long result = 0;
-			while (n != V - 1) {
-				int[] graph = q.poll();
-				if (!union(graph[0], graph[1]))
-					continue;
-				result += graph[2];
-				n++;
+			long weight = 0;
+			while (n != V - 1) { // 간선은 정점 크기 -1
+				int[] graph = q.poll(); // 우선순위가 낮은 것부터 빼서 => 가중치가 낮은 것
+				if (!union(graph[0], graph[1])) { // 순환한다면
+					continue; // 넘김
+				}
+				weight += graph[2]; // 가중치 증가
+				n++; // 순환하지 않은 경우엔 증가X
 			}
-			sb.append("#").append(testCase).append(" ").append(result).append("\n");
+			sb.append("#").append(testCase).append(" ").append(weight).append("\n");
 		}
 		System.out.print(sb); // 정답 출력
 	}
